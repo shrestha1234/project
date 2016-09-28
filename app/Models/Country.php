@@ -9,7 +9,8 @@ class Country extends Model {
      */
 
     protected $table = 'country';
-    protected $fillable = ['id', 'country name'];
+    protected $fillable = ['id', 'country_name'];
+
 
 
     public function states() {

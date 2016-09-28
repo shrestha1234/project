@@ -3,6 +3,7 @@
 namespace Lost\Http\Controllers\Web;
 
 
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 use Lost\Http\Requests;
@@ -23,10 +24,28 @@ class LoginController extends Controller
 
     public function Register(FormBuilder $formBuilder)
     {
+        $client=new Client();
+        $response=$client->request('GET','http://localhost:8001/api/country');
+        $data=$response->getBody()->getContents();
+        $countries=\GuzzleHttp\json_decode($data);
+
+
+        $response=$client->request('GET','http://localhost:8001/api/state');
+        $data=$response->getBody()->getContents();
+        $states=\GuzzleHttp\json_decode($data);
+
+        $response=$client->request('GET','http://localhost:8001/api/zone');
+        $data=$response->getBody()->getContents();
+        $zones=\GuzzleHttp\json_decode($data);
+
+        $response=$client->request('GET','http://localhost:8001/api/district');
+        $data=$response->getBody()->getContents();
+        $districts=\GuzzleHttp\json_decode($data);
+
         $form = $formBuilder->create('Lost\Forms\RegisterForm', [
             'method' => 'post',
             'url' => route('register')
-        ]);
+        ],['countries'=>$countries,'states'=>$states,'zones'=>$zones,'districts'=>$districts]);
         return view('register', ['form' => $form]);
 
     }
