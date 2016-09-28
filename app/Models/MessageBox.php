@@ -8,8 +8,8 @@ class MessageBox extends Model {
      * Generated
      */
 
-    protected $table = 'message box';
-    protected $fillable = ['id', 'message_id', 'user_id', 'box type_id', 'message body'];
+    protected $table = 'messagebox';
+    protected $fillable = ['id', 'message_id', 'user_id', 'box type_id', 'messagebody'];
 
 
     public function boxType() {

@@ -10,7 +10,7 @@ use Lost\Http\Controllers\Controller;
 class UserController extends Controller
 {
     public function Register(Request $request){
-
+    $user=new user();
 
     }
 }

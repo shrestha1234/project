@@ -8,8 +8,8 @@ class UserDetail extends Model {
      * Generated
      */
 
-    protected $table = 'user detail';
-    protected $fillable = ['id', 'user id', 'first name', 'last name', 'address', 'phone no', 'country_id', 'state_id', 'zone_id', 'district_id', 'locality'];
+    protected $table = 'userdetail';
+    protected $fillable = ['id', 'user_id', 'firstname', 'lastname', 'address', 'phone_no', 'country_id', 'state_id', 'zone_id', 'district_id', 'locality'];
 
 
     public function country() {
@@ -29,7 +29,7 @@ class UserDetail extends Model {
     }
 
     public function user() {
-        return $this->belongsTo(\Lost\Models\User::class, 'user id', 'id');
+        return $this->belongsTo(\Lost\Models\User::class, 'user_id', 'id');
     }
 
 

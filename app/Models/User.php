@@ -8,15 +8,15 @@ class User extends Model {
      * Generated
      */
 
-    protected $table = 'user';
-    protected $fillable = ['id', 'username', 'password', 'email', 'user typeid'];
+    protected $table = 'users';
+    protected $fillable = ['id', 'username', 'password', 'email', 'usertypeid'];
 
 
     public function itemTypes() {
         return $this->belongsToMany(\Lost\Models\ItemType::class, 'found', 'user id', 'item type_id');
     }
 
-    public function itemTypes() {
+    public function item_Types() {
         return $this->belongsToMany(\Lost\Models\ItemType::class, 'lost', 'user id', 'item type_id');
     }
 
