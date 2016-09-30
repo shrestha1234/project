@@ -9,15 +9,15 @@ class Lost extends Model {
      */
 
     protected $table = 'lost';
-    protected $fillable = ['id', 'description', 'image', 'user id', 'item type_id', 'date'];
+    protected $fillable = ['id', 'description', 'image', 'user_id', 'item_type_id', 'date'];
 
-
+    public $timestamps=false;
     public function itemType() {
-        return $this->belongsTo(\Lost\Models\ItemType::class, 'item type_id', 'id');
+        return $this->belongsTo(\Lost\Models\ItemType::class, 'item_type_id', 'id');
     }
 
     public function user() {
-        return $this->belongsTo(\Lost\Models\User::class, 'user id', 'id');
+        return $this->belongsTo(\Lost\Models\User::class, 'user_id', 'id');
     }
 
 

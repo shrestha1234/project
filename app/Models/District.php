@@ -10,7 +10,7 @@ class District extends Model {
 
     protected $table = 'district';
     protected $fillable = ['id', 'zone _id', 'name'];
-
+    public $timestamps=false;
 
     public function zone() {
         return $this->belongsTo(\Lost\Models\Zone::class, 'zone _id', 'id');

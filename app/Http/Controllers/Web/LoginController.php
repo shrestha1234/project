@@ -13,7 +13,7 @@ use Kris\LaravelFormBuilder\FormBuilder;
 class LoginController extends Controller
 {
 
-    public function Login(FormBuilder $formBuilder)
+    public function Login(FormBuilder $formBuilder,Request $request)
     {
         $form = $formBuilder->create('Lost\Forms\LoginForm', [
             'method' => 'post',
@@ -22,31 +22,57 @@ class LoginController extends Controller
         return view('login', ['form' => $form]);
     }
 
-    public function Register(FormBuilder $formBuilder)
+    public function Register(FormBuilder $formBuilder,Request $request)
     {
-        $client=new Client();
-        $response=$client->request('GET','http://localhost:8001/api/country');
-        $data=$response->getBody()->getContents();
-        $countries=\GuzzleHttp\json_decode($data);
+        try {
+            $client = new Client(['base_uri' => config('app.REST_API')]);
+            $response = $client->request('GET', 'country');
+            $data = $response->getBody()->getContents();
+            $countries = \GuzzleHttp\json_decode($data);
 
 
-        $response=$client->request('GET','http://localhost:8001/api/state');
-        $data=$response->getBody()->getContents();
-        $states=\GuzzleHttp\json_decode($data);
+            $response = $client->request('GET', 'state');
+            $data = $response->getBody()->getContents();
+            $states = \GuzzleHttp\json_decode($data);
 
-        $response=$client->request('GET','http://localhost:8001/api/zone');
-        $data=$response->getBody()->getContents();
-        $zones=\GuzzleHttp\json_decode($data);
+            $response = $client->request('GET', 'zone');
+            $data = $response->getBody()->getContents();
+            $zones = \GuzzleHttp\json_decode($data);
 
-        $response=$client->request('GET','http://localhost:8001/api/district');
-        $data=$response->getBody()->getContents();
-        $districts=\GuzzleHttp\json_decode($data);
+            $response = $client->request('GET', 'district');
+            $data = $response->getBody()->getContents();
+            $districts = \GuzzleHttp\json_decode($data);
 
-        $form = $formBuilder->create('Lost\Forms\RegisterForm', [
-            'method' => 'post',
-            'url' => route('register')
-        ],['countries'=>$countries,'states'=>$states,'zones'=>$zones,'districts'=>$districts]);
-        return view('register', ['form' => $form]);
+            $form = $formBuilder->create('Lost\Forms\RegisterForm', [
+                'method' => 'post',
+                'url' => route('register')
+            ], ['countries' => $countries, 'states' => $states, 'zones' => $zones, 'districts' => $districts]);
+            //print_r($request->getMethod());die();
+            if ($request->getMethod() == 'POST') {
+                //print_r($request);die();
+                $client->request('POST', 'register',
+                    [
+                        'form_params' => [
+                            'first_name' => $request->First_Name,
+                            'last_name' => $request->Last_Name,
+                            'email' => $request->Email,
+                            'phone_no' => $request->Phone_No,
+                            'locality' => $request->Locality,
+                            'user_typeid' => $request->User_Type,
+                            'country' => $request->Country,
+                            'state' => $request->State,
+                            'zone' => $request->Zone,
+                            'district' => $request->District,
+
+                        ]
+                    ]);
+            }
+            return view('register', ['form' => $form]);
+        }
+        catch(\Exception $e)
+        {
+            print_r($e->getMessage());die();
+        }
 
     }
 

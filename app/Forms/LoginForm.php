@@ -13,13 +13,15 @@ class LoginForm extends Form
                 'wrapper'=>['class'=>'form-group row'],
                 'label_attr'=>['class'=>'col-md-4 control-label'],
                 'attr'=>['class'=>'col-md-7 form-control','placeholder'=>'Enter your Username'],
+                'rules'=>['required']
 
 
             ])
             ->add('password','password',[
                 'wrapper'=>['class'=>'form-group row'],
                 'label_attr'=>['class'=>'col-md-4 control-label'],
-                'attr'=>['class'=>'col-md-7  form-control','placeholder'=>'Enter your Password']
+                'attr'=>['class'=>'col-md-7  form-control','placeholder'=>'Enter your Password'],
+                'rules'=>['required','min:8'],
             ])
              ->add('remember_me', 'checkbox', [
                 'value' => 1,

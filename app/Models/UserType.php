@@ -8,9 +8,9 @@ class UserType extends Model {
      * Generated
      */
 
-    protected $table = 'user type';
+    protected $table = 'user_type';
     protected $fillable = ['id', 'name'];
-
+    public $timestamps=false;
 
 
 }

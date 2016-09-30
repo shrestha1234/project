@@ -8,12 +8,12 @@ class BoxType extends Model {
      * Generated
      */
 
-    protected $table = 'box type';
+    protected $table = 'box_type';
     protected $fillable = ['id', 'name'];
-
+    public $timestamps=false;
 
     public function messageBoxes() {
-        return $this->hasMany(\Lost\Models\MessageBox::class, 'box type_id', 'id');
+        return $this->hasMany(\Lost\Models\MessageBox::class, 'box_type_id', 'id');
     }
 
 

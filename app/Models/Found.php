@@ -9,16 +9,8 @@ class Found extends Model {
      */
 
     protected $table = 'found';
-    protected $fillable = ['id', 'description', 'image', 'user id', 'item type_id', 'date'];
+    protected $fillable = ['id', 'description', 'image', 'user_id', 'item_type_id', 'date'];
 
-
-    public function itemType() {
-        return $this->belongsTo(\Lost\Models\ItemType::class, 'item type_id', 'id');
-    }
-
-    public function user() {
-        return $this->belongsTo(\Lost\Models\User::class, 'user id', 'id');
-    }
-
+    public $timestamps=false;
 
 }

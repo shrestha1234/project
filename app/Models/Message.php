@@ -9,12 +9,8 @@ class Message extends Model {
      */
 
     protected $table = 'message';
-    protected $fillable = ['id', 'subject', 'body', 'created date'];
+    protected $fillable = ['id', 'subject', 'body', 'created_date'];
 
-
-    public function messageBoxes() {
-        return $this->hasMany(\Lost\Models\MessageBox::class, 'message_id', 'id');
-    }
-
+    public $timestamps=false;
 
 }

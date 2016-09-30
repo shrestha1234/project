@@ -17,7 +17,7 @@
 //}
 //]);
 Route::get('/',['as'=>'login','uses'=>'Web\LoginController@Login']);
-Route::get('/register',['as'=>'register','uses'=>'Web\LoginController@Register']);
+Route::any('/register',['as'=>'register','uses'=>'Web\LoginController@Register']);
 Route::get('/searchlost',['as'=>'searchlost','uses'=>'Web\LoginController@Search']);
 Route::get('/searchfound',['as'=>'searchfound','uses'=>'Web\LoginController@Lost']);
 Route::get('/lostitem',['as'=>'lostitem','uses'=>'Web\LoginController@ReportLost']);

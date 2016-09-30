@@ -8,10 +8,10 @@ class UserDetail extends Model {
      * Generated
      */
 
-    protected $table = 'user detail';
-    protected $fillable = ['id', 'user id', 'first name', 'last name', 'address', 'phone no', 'country_id', 'state_id', 'zone_id', 'district_id', 'locality'];
+    protected $table = 'user_detail';
+    protected $fillable = ['id', 'user_id', 'first_name', 'last_name', 'address', 'phone_no', 'country_id', 'state_id', 'zone_id', 'district_id', 'locality'];
 
-
+    public $timestamps=false;
     public function country() {
         return $this->belongsTo(\Lost\Models\Country::class, 'country_id', 'id');
     }
@@ -20,16 +20,16 @@ class UserDetail extends Model {
         return $this->belongsTo(\Lost\Models\District::class, 'district_id', 'id');
     }
 
-    public function zone() {
-        return $this->belongsTo(\Lost\Models\Zone::class, 'zone_id', 'id');
-    }
-
     public function state() {
         return $this->belongsTo(\Lost\Models\State::class, 'state_id', 'id');
     }
 
     public function user() {
-        return $this->belongsTo(\Lost\Models\User::class, 'user id', 'id');
+        return $this->belongsTo(\Lost\Models\User::class, 'user_id', 'id');
+    }
+
+    public function zone() {
+        return $this->belongsTo(\Lost\Models\Zone::class, 'zone_id', 'id');
     }
 
 

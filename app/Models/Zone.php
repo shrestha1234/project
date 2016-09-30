@@ -10,7 +10,7 @@ class Zone extends Model {
 
     protected $table = 'zone';
     protected $fillable = ['id', 'state_id', 'name'];
-
+    public $timestamps=false;
 
     public function state() {
         return $this->belongsTo(\Lost\Models\State::class, 'state_id', 'id');

@@ -39,16 +39,18 @@ class RegisterForm extends Form
             $districtOptions[$district->id]=$district->name;
         }
         $this
-        ->add('First Name','text',[
+        ->add('First_Name','text',[
         'wrapper'=>['class'=>'form-group row'],
         'label_attr'=>['class'=>'col-md-4 control-label'],
-            'attr'=>['class'=>'col-md-7 form-control','placeholder'=>'Enter your First Name']
+            'attr'=>['class'=>'col-md-7 form-control','placeholder'=>'Enter your First Name'],
+            'rules'=>['required']
 
     ])
-        ->add('Last Name','text',[
+        ->add('Last_Name','text',[
             'wrapper'=>['class'=>'form-group row'],
             'label_attr'=>['class'=>'col-md-4 control-label'],
-            'attr'=>['class'=>'col-md-7 form-control','placeholder'=>'Enter your Last Name']
+            'attr'=>['class'=>'col-md-7 form-control','placeholder'=>'Enter your Last Name'],
+            'rules'=>['required','min:8']
 
         ])
             ->add('Email','email',[
@@ -58,19 +60,14 @@ class RegisterForm extends Form
 
             ])
 
-            ->add('locality','text',[
-                'wrapper'=>['class'=>'form-group row'],
-                'label_attr'=>['class'=>'col-md-4 control-label'],
-                'attr'=>['class'=>'col-md-7 form-control','placeholder'=>'Enter your Locality']
 
-            ])
-            ->add('Phone no','text',[
+            ->add('Phone_No','text',[
                 'wrapper'=>['class'=>'form-group row'],
                 'label_attr'=>['class'=>'col-md-4 control-label'],
                 'attr'=>['class'=>'col-md-7 form-control','placeholder'=>'Enter your Phone Number']])
 
 
-            ->add('country','select', [
+            ->add('Country','select', [
                 'wrapper'=>['class'=>'form-group row'],
                 'choices' => $countryOptions,
                 'selected' => 'Nepal',
@@ -118,7 +115,10 @@ class RegisterForm extends Form
             'wrapper'=>['class'=>'form-group row'],
                 'label_attr'=>['class'=>'col-md-4 control-label'],
             'attr'=>['class'=>'btn btn-primary col-md-offset-1']
-        ]);
+                ])
+            ->add('User_Type','hidden',[
+                'default_value'=>1
+            ]);
 
     }
 }

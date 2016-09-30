@@ -8,24 +8,16 @@ class ItemType extends Model {
      * Generated
      */
 
-    protected $table = 'item type';
+    protected $table = 'item_type';
     protected $fillable = ['id', 'name'];
-
-
-    public function users() {
-        return $this->belongsToMany(\Lost\Models\User::class, 'found', 'item type_id', 'user id');
-    }
+    public $timestamps=false;
 
     public function users() {
-        return $this->belongsToMany(\Lost\Models\User::class, 'lost', 'item type_id', 'user id');
-    }
-
-    public function founds() {
-        return $this->hasMany(\Lost\Models\Found::class, 'item type_id', 'id');
+        return $this->belongsToMany(\Lost\Models\User::class, 'lost', 'item_type_id', 'user_id');
     }
 
     public function losts() {
-        return $this->hasMany(\Lost\Models\Lost::class, 'item type_id', 'id');
+        return $this->hasMany(\Lost\Models\Lost::class, 'item_type_id', 'id');
     }
 
 

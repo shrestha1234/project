@@ -10,7 +10,7 @@ class State extends Model {
 
     protected $table = 'state';
     protected $fillable = ['id', 'country_id', 'name'];
-
+    public $timestamps=false;
 
     public function country() {
         return $this->belongsTo(\Lost\Models\Country::class, 'country_id', 'id');
