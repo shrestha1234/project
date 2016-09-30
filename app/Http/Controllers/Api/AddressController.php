@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 use Lost\Http\Requests;
 use Lost\Http\Controllers\Controller;
 use Lost\Models\Country;
-use Lost\Models\District;
 use Lost\Models\State;
-use Lost\Models\Zone;
 
 class AddressController extends Controller
 {
@@ -29,6 +27,5 @@ class AddressController extends Controller
     {
         return District::all();
     }
-
 
 }

@@ -37,7 +37,7 @@
             <li><a href="/"><span class="glyphicon glyphicon-home"></span>Home</a></li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-search"></span>Search <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/searchlost">Lost found</a></li>
+                    <li><a href="/searchlost">Lost Found</a></li>
                     <li><a href="/searchfound">Search Found</a></li>
                 </ul>
             </li>
