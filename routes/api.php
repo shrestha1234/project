@@ -26,5 +26,6 @@ $api->version("v1",['namespace'=>"Lost\Http\Controllers\Api"],function($api){
     $api->get('district',['uses'=>'AddressController@getDistrict']);
     $api->get('category',['uses'=>'AddressController@getCategory']);
     $api->any('register',['uses'=>'UserController@Register']);
+    $api->any('login',['uses'=>'UserController@Login']);
 
 });

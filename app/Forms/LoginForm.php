@@ -9,7 +9,7 @@ class LoginForm extends Form
     public function buildForm()
     {
         $this
-            ->add('username','text',[
+            ->add('email','text',[
                 'wrapper'=>['class'=>'form-group row'],
                 'label_attr'=>['class'=>'col-md-4 control-label'],
                 'attr'=>['class'=>'col-md-7 form-control','placeholder'=>'Enter your Username'],

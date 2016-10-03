@@ -20,6 +20,18 @@ class RegisterForm extends Form
         {
             $stateOptions[$state->id]=$state->name;
         }
+        $zones=$this->getData('zones');
+        $zoneOptions=[];
+        foreach($zones->zones as $zone)
+        {
+            $zoneOptions[$zone->id]=$zone->name;
+        }
+        $districts=$this->getData('districts');
+        $districtOptions=[];
+        foreach($districts->districts as $district)
+        {
+            $districtOptions[$district->id]=$district->name;
+        }
         $this
         ->add('First_Name','text',[
         'wrapper'=>['class'=>'form-group row'],
@@ -41,12 +53,16 @@ class RegisterForm extends Form
                 'attr'=>['class'=>'col-md-7 form-control','placeholder'=>'Enter your Email']
 
             ])
-
-
+            ->add('Password','password',[
+                'wrapper'=>['class'=>'form-group row'],
+                'label_attr'=>['class'=>'col-md-4 control-label'],
+                'attr'=>['class'=>'col-md-7 form-control','placeholder'=>'Enter your Password']
+            ])
             ->add('Phone_No','text',[
                 'wrapper'=>['class'=>'form-group row'],
                 'label_attr'=>['class'=>'col-md-4 control-label'],
-                'attr'=>['class'=>'col-md-7 form-control','placeholder'=>'Enter your Phone Number']])
+                'attr'=>['class'=>'col-md-7 form-control','placeholder'=>'Enter your Phone Number']
+            ])
 
 
             ->add('Country','select', [
@@ -66,7 +82,7 @@ class RegisterForm extends Form
             ])
             ->add('Zone','select', [
                 'wrapper'=>['class'=>'form-group row'],
-                'choices' => [ 'Bagmati','Narayani','gandaki',],
+                'choices' => $zoneOptions,
                 'selected' => 'Bagmati',
                 'label_attr'=>['class'=>'col-md-4 control-label'],
                 'attr'=>['class'=>'col-md-7 form-control','placeholder'=>'Select your Zone'],
@@ -74,7 +90,7 @@ class RegisterForm extends Form
             ])
             ->add('District','select', [
                 'wrapper'=>['class'=>'form-group row'],
-                'choices' => [ 'Kathmandu','Bhaktapur','Lalitpur',],
+                'choices' =>$districtOptions,
                 'selected' => 'Nepal',
                 'label_attr'=>['class'=>'col-md-4 control-label'],
                 'attr'=>['class'=>'col-md-7 form-control','placeholder'=>'Select your District'],

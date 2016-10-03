@@ -16,7 +16,7 @@
 //    return view('home');
 //}
 //]);
-Route::get('/',['as'=>'login','uses'=>'Web\LoginController@Login']);
+Route::any('/',['as'=>'login','uses'=>'Web\LoginController@Login']);
 Route::any('/register',['as'=>'register','uses'=>'Web\LoginController@Register']);
 Route::get('/searchlost',['as'=>'searchlost','uses'=>'Web\LoginController@Search']);
 Route::get('/searchfound',['as'=>'searchfound','uses'=>'Web\LoginController@Lost']);

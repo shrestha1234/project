@@ -9,7 +9,8 @@
         "laravel/framework": "5.3.*",
         "kris/laravel-form-builder": "^1.9",
         "dingo/api": "1.0.x@dev",
-        "guzzleHttp/Guzzle": "^6.2"
+        "guzzleHttp/Guzzle": "^6.2",
+        "tymon/jwt-auth": "0.5.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

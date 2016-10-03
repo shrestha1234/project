@@ -15,14 +15,32 @@ class LoginController extends Controller
 
     public function Login(FormBuilder $formBuilder,Request $request)
     {
+        $client = new Client(['base_uri' => config('app.REST_API')]);
         $form = $formBuilder->create('Lost\Forms\LoginForm', [
             'method' => 'post',
             'url' => route('login')
         ]);
+        if ($request->getMethod() == 'POST') {
+            //print_r($request);die();
+            $response = $client->request('POST', 'login',
+                [
+                    'form_params' => [
+                        'email' => $request->email,
+                        'password' => $request->password,
+
+                    ]
+                ]);
+        // print_r($response->getBody()->getContents());die();
+        }
         return view('login', ['form' => $form]);
     }
 
-    public function Register(FormBuilder $formBuilder,Request $request)
+    /**
+     * @param FormBuilder $formBuilder
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function Register(FormBuilder $formBuilder, Request $request)
     {
         try {
             $client = new Client(['base_uri' => config('app.REST_API')]);
@@ -56,6 +74,7 @@ class LoginController extends Controller
                             'first_name' => $request->First_Name,
                             'last_name' => $request->Last_Name,
                             'email' => $request->Email,
+                            'password' => $request->Password,
                             'phone_no' => $request->Phone_No,
                             'locality' => $request->Locality,
                             'user_typeid' => $request->User_Type,
