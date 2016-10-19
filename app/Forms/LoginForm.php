@@ -21,7 +21,7 @@ class LoginForm extends Form
                 'wrapper'=>['class'=>'form-group row'],
                 'label_attr'=>['class'=>'col-md-4 control-label'],
                 'attr'=>['class'=>'col-md-7  form-control','placeholder'=>'Enter your Password'],
-                'rules'=>['required','min:8'],
+                'rules'=>['required','min:5'],
             ])
              ->add('remember_me', 'checkbox', [
                 'value' => 1,

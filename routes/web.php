@@ -18,11 +18,16 @@
 //]);
 Route::any('/',['as'=>'login','uses'=>'Web\LoginController@Login']);
 Route::any('/register',['as'=>'register','uses'=>'Web\LoginController@Register']);
-Route::get('/searchlost',['as'=>'searchlost','uses'=>'Web\LoginController@Search']);
-Route::get('/searchfound',['as'=>'searchfound','uses'=>'Web\LoginController@Lost']);
-Route::get('/lostitem',['as'=>'lostitem','uses'=>'Web\LoginController@ReportLost']);
-Route::get('/founditem',['as'=>'founditem','uses'=>'Web\LoginController@ReportFound']);
+
 Route::get('/information',function(){
     return view('information');
+
 });
+
+
 Route::get('/contact',['as'=>'contact','uses'=>'Web\LoginController@Contact']);
+Route::get('/logout',['as'=>'logout',function(){
+    Session::flush();
+    return redirect()->route('login');
+}]);
+include_once ('client.php');

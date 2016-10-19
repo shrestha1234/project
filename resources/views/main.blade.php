@@ -32,37 +32,16 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
 
-        <ul class="nav navbar-nav " >
-
-            <li><a href="/"><span class="glyphicon glyphicon-home"></span>Home</a></li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-search"></span>Search <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/searchlost">Lost Found</a></li>
-                    <li><a href="/searchfound">Search Found</a></li>
-                </ul>
-            </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Report <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/lostitem">Report Lost</a></li>
-                    <li><a href="/founditem">Report Found</a></li>
-                </ul>
-            </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" >About <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/information">Information</a></li>
-                    <li><a href="/contact">Contact</a></li>
-
-                </ul>
-            </li>
-        </ul>
-
-        <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="/"><span class="glyphicon glyphicon-user"></span> Login</a></li>
-            <li><a href="register"> <span class="glyphicon glyphicon-log-in"></span> Sign Up</a></li>
-        </ul>
+       @include('menu')
     </div>
 </nav>
 </div>
+@if (session('status'))
+    <div class="alert alert-success">
+        {{session('status')}}
+    </div>
+@endif
+
 <div style="height:400px" ;>
 @yield('content')</div>
 

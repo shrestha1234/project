@@ -6,9 +6,11 @@ namespace Lost\Http\Controllers\Web;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
 use Lost\Http\Requests;
 use Lost\Http\Controllers\Controller;
 use Kris\LaravelFormBuilder\FormBuilder;
+use Lost\User;
 
 class LoginController extends Controller
 {
@@ -30,6 +32,19 @@ class LoginController extends Controller
 
                     ]
                 ]);
+            $userApi=\GuzzleHttp\json_decode($response->getBody()->getContents())->user;
+            //print_r($userApi);die();
+            $user=new User();
+            $user->id=$userApi->id;
+            $user->username=$userApi->username;
+            $user->password=$userApi->password;
+            $user->user_typeid=$userApi->user_typeid;
+            Auth::login($user);
+
+            /*print_r(Auth::user());die();*/
+            //   return redirect()->route('manager.dash');
+            return $this->UserCheck();
+
         // print_r($response->getBody()->getContents());die();
         }
         return view('login', ['form' => $form]);
@@ -85,6 +100,7 @@ class LoginController extends Controller
 
                         ]
                     ]);
+                return redirect('/')->with('status','User Successfully Created!');
             }
             return view('register', ['form' => $form]);
         }
@@ -146,6 +162,26 @@ class LoginController extends Controller
             'url' => route('contact')
         ]);
         return view('contact', ['form' => $form]);
+    }
+    public function DashBoard (FormBuilder $formBuilder)
+    {
+        $form = $formBuilder->create('Lost\Forms\dashboard', [
+            'method' => 'post',
+            'url' => route('dashboard')
+        ]);
+        return view('dashboard', ['form' => $form]);
+    }
+    private function UserCheck()
+    {
+        if(Auth::check())
+        {
+
+            $user=Auth::user();
+            if($user->user_typeid==1)
+            {
+                return redirect()->route('dashboard');
+            }
+        }
     }
 }
 
