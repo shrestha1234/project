@@ -3,6 +3,7 @@
 ?>
 <ul class="nav navbar-nav " >
 @if(Auth::check())
+        <li class="active"><a href="/dashboard"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-search"></span>Search <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                 <li><a href="/searchlost">Lost Found</a></li>
@@ -62,7 +63,9 @@
 
 <ul class="nav navbar-nav navbar-right">
         @if(Auth::check())
+        <li ><a href=""></span> My Account</a></li>
                 <li ><a href="/logout"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
+
 
                 @else
                 <li class="active"><a href="/"><span class="glyphicon glyphicon-user"></span> Login</a></li>

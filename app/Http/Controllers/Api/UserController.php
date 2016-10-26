@@ -4,6 +4,8 @@ namespace Lost\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use JWTAuth;
+use Lost\Models\Found;
+use Lost\Models\Lost;
 use Validator;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Support\Facades\Password;
@@ -43,6 +45,43 @@ class UserController extends Controller
             throw $e;
         }
 
+    }
+
+
+    public function ItemTypeLost(Request $request)
+    {
+       // return response()->json($request);
+        try {
+//            return response()->json($request);
+
+            $itemtype = new Lost();
+            /*$itemtype->id = $request->id;*/
+            $itemtype->description = $request->description;
+            $itemtype->image = $request->image;
+             $itemtype->item_type_id = $request->itemtypeid;
+             $itemtype->user_id = $request->userid;
+             $itemtype->date = $request->date;
+             $itemtype->save();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+    public function ItemTypeFound(Request $request)
+    {
+        try {
+
+
+            $itemtype = new Found();
+            /*$itemtype->id = $request->id;*/
+            $itemtype->description = $request->description;
+            $itemtype->image = $request->image;
+            $itemtype->item_type_id = $request->item_type_id;
+            $itemtype->user_id = $request->userid;
+            $itemtype->date = $request->date;
+            $itemtype->save();
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
      public function login(Request $request)

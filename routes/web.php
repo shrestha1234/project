@@ -18,6 +18,7 @@
 //]);
 Route::any('/',['as'=>'login','uses'=>'Web\LoginController@Login']);
 Route::any('/register',['as'=>'register','uses'=>'Web\LoginController@Register']);
+Route::any('/login',['as'=>'found_item','uses'=>'Web\ItemController@FoundItem']);
 
 Route::get('/information',function(){
     return view('information');

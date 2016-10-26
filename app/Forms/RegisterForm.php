@@ -34,8 +34,8 @@ class RegisterForm extends Form
         }
         $this
         ->add('First_Name','text',[
-        'wrapper'=>['class'=>'form-group row'],
-        'label_attr'=>['class'=>'col-md-4 control-label'],
+            'wrapper'=>['class'=>'form-group row'],
+            'label_attr'=>['class'=>'col-md-4 control-label'],
             'attr'=>['class'=>'col-md-7 form-control','placeholder'=>'Enter your First Name'],
             'rules'=>['required']
 

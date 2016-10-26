@@ -24,8 +24,12 @@ $api->version("v1",['namespace'=>"Lost\Http\Controllers\Api"],function($api){
     $api->get('state',['uses'=>'AddressController@getState']);
     $api->get('zone',['uses'=>'AddressController@getZone']);
     $api->get('district',['uses'=>'AddressController@getDistrict']);
-    $api->get('category',['uses'=>'AddressController@getCategory']);
     $api->any('register',['uses'=>'UserController@Register']);
     $api->any('login',['uses'=>'UserController@Login']);
+    $api->any('lostitem',['uses'=>'UserController@ItemTypeLost']);
+    $api->any('founditem',['uses'=>'UserController@ItemTypeFound']);
+    $api->get('item_type',['uses'=>'ItemController@getCategory']);
+    $api->get('found_item',['uses'=>'ItemController@getFoundItem']);
+
 
 });

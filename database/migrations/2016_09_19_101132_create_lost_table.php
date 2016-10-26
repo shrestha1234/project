@@ -19,7 +19,7 @@ class CreateLostTable extends Migration {
 			$table->string('image', 45)->nullable();
 			$table->integer('user id')->nullable()->index('fk_user');
 			$table->integer('item type_id')->nullable()->index('fk.itemtype');
-			$table->integer('date')->nullable();
+			$table->date('date')->nullable();
 		});
 	}
 
