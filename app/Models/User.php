@@ -13,7 +13,13 @@ class User extends Model {
     public $timestamps=false;
 
     public function itemTypes() {
-        return $this->belongsToMany(\Lost\Models\ItemType::class, 'lost', 'user_id', 'item_type_id');
+        return $this->belongsToMany(\Lost\Models\ItemType::class, 'found', 'user_id', 'item_type_id');
+    }
+
+
+
+    public function founds() {
+        return $this->hasMany(\Lost\Models\Found::class, 'user_id', 'id');
     }
 
     public function losts() {

@@ -17,14 +17,26 @@
 //}
 //]);
 Route::any('/',['as'=>'login','uses'=>'Web\LoginController@Login']);
+
 Route::any('/register',['as'=>'register','uses'=>'Web\LoginController@Register']);
-Route::any('/login',['as'=>'found_item','uses'=>'Web\ItemController@FoundItem']);
+
 
 Route::get('/information',function(){
     return view('information');
 
 });
 
+
+
+Route::get('/alllostposts',['as'=>'alllostposts','uses'=>'Web\LoginController@alllost']);
+Route::get('/allfoundposts',['as'=>'allfoundposts','uses'=>'Web\LoginController@allfound']);
+Route::any('/message',['as'=>'message','uses'=>'Web\LoginController@Message']);
+Route::any('/lostdetailview',['as'=>'lostdetailview','uses'=>'Web\LoginController@lostdetailview']);
+Route::any('/founddetailview',['as'=>'founddetailview','uses'=>'Web\LoginController@founddetailview']);
+
+Route::any('/searchlostlist',['as'=>'search','uses'=>'Web\ItemController@SearchLost']);
+Route::any('/searchlost',['as'=>'searchlost','uses'=>'Web\LoginController@SearchLost']);
+Route::any('/searchfound',['as'=>'searchfound','uses'=>'Web\LoginController@SearchFound']);
 
 Route::get('/contact',['as'=>'contact','uses'=>'Web\LoginController@Contact']);
 Route::get('/logout',['as'=>'logout',function(){

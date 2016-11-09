@@ -17,7 +17,7 @@ class Zone extends Model {
     }
 
     public function districts() {
-        return $this->hasMany(\Lost\Models\District::class, 'zone _id', 'id');
+        return $this->hasMany(\Lost\Models\District::class, 'zone_id', 'id');
     }
 
     public function userDetails() {

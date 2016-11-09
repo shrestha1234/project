@@ -30,6 +30,16 @@ $api->version("v1",['namespace'=>"Lost\Http\Controllers\Api"],function($api){
     $api->any('founditem',['uses'=>'UserController@ItemTypeFound']);
     $api->get('item_type',['uses'=>'ItemController@getCategory']);
     $api->get('found_item',['uses'=>'ItemController@getFoundItem']);
+    $api->get('lost_item',['uses'=>'ItemController@getLostItem']);
+    $api->get('allfound',['uses'=>'ItemController@getFound']);
+    $api->get('alllost',['uses'=>'ItemController@getLost']);
+    $api->any('lostdetail',['uses'=>'ItemController@getLostdetail']);
+    $api->any('founddetail',['uses'=>'ItemController@Founddetail']);
+    $api->any('searchlost',['uses'=>'ItemController@getSearchLost']);
+    $api->any('searchfound',['uses'=>'ItemController@getSearchFound']);
+
+    $api->any('lostdetailview/{id}',['uses'=>'ItemController@getLostDetailView']);
+    $api->any('founddetailview/{id}',['uses'=>'ItemController@getFoundDetailView']);
 
 
 });

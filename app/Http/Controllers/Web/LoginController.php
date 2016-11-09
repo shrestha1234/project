@@ -47,8 +47,21 @@ class LoginController extends Controller
 
         // print_r($response->getBody()->getContents());die();
         }
-        return view('login', ['form' => $form]);
+        /*$client = new Client(['base_uri' => config('app.REST_API')]);
+        $response = $client->request('GET', 'found_item');
+        $data = $response->getBody()->getContents();
+        $found_items = \GuzzleHttp\json_decode($data);*/
+
+        /*return view('login', ['form' => $form,'foundItems'=>$found_items]);//home view return garxa*/
+
+
+        $response1 = $client->request('GET', 'lost_item');
+        $data1 = $response1->getBody()->getContents();
+        $lost_items = \GuzzleHttp\json_decode($data1);
+
+        return view('login', compact('lost_items','form'));
     }
+
 
     /**
      * @param FormBuilder $formBuilder
@@ -61,7 +74,7 @@ class LoginController extends Controller
             $client = new Client(['base_uri' => config('app.REST_API')]);
             $response = $client->request('GET', 'country');/*country apiroute ma janxa*/  //$response ma database bata data ayoo
             $data = $response->getBody()->getContents();
-            $countries = \GuzzleHttp\json_decode($data);
+            $countries = \GuzzleHttp\json_decode($data);   /*$countries in array country data*/
 
 
             $response = $client->request('GET', 'state');
@@ -113,23 +126,43 @@ class LoginController extends Controller
 
     public function SearchLost(FormBuilder $formBuilder, Request $request)
     {
+        $searchlost=null;
 
             $client = new Client(['base_uri' => config('app.REST_API')]);
+
         $response = $client->request('GET', 'item_type');
             /*print_r();die();*/
         $data = $response->getBody()->getContents();
         $itemtypes = \GuzzleHttp\json_decode($data);
+      //  print_r($itemtypes);die();
         $form = $formBuilder->create('Lost\Forms\searchlost', [
             'method' => 'post',
             'url' => route('searchlost')
         ],['itemtypes' => $itemtypes]);
-        return view('searchlost', ['form' => $form]);
 
+        if ($request->getMethod() == 'POST')
+        {
+
+            $response1=$client->request('POST', 'searchlost',
+                [
+                    'form_params' => [
+                        'keyword' => $request->Keyword,
+                        /*'category' => $request->Category,*/
+
+                    ]
+                ]);
+            $data1 = $response1->getBody()->getContents();
+            $searchlost = \GuzzleHttp\json_decode($data1);
+
+        }
+
+    return view('searchlost', ['form' => $form,'searchlost'=>$searchlost]);
 
     }
 
-    public function SearchFound(FormBuilder $formBuilder)
+    public function SearchFound(FormBuilder $formBuilder,Request $request)
     {
+        $searchfound =null;
         $client = new Client(['base_uri' => config('app.REST_API')]);
         $response = $client->request('GET', 'item_type');
         /*print_r();die();*/
@@ -139,7 +172,21 @@ class LoginController extends Controller
             'method' => 'post',
             'url' => route('searchfound')
         ],['itemtypes' => $itemtypes]);
-        return view('searchfound', ['form' => $form]);
+        if ($request->getMethod() == 'POST')
+        {
+
+            $response1=$client->request('POST', 'searchfound',
+                [
+                    'form_params' => [
+                        'keyword' => $request->Keyword,
+                        'category' => $request->Category,
+
+                    ]
+                ]);
+            $data1 = $response1->getBody()->getContents();
+            $searchfound = \GuzzleHttp\json_decode($data1);
+        }
+        return view('searchfound', ['form' => $form,'searchfound'=>$searchfound]);
     }
     public function ReportLost(FormBuilder $formBuilder,Request $request)
     {
@@ -159,37 +206,25 @@ class LoginController extends Controller
         /*print_r($request->Date);die();*/
         if ($request->getMethod() == 'POST') {
             try {
-                $tmpPath=$_FILES['Image']['tmp_name'];
-                $filename=basename($_FILES['Image']['name']);
-                //print_r($filename);die();
-                $path='image/';
-                if ($_FILES["Image"]["error"] > 0)
-                {
-                    echo "Apologies, an error has occurred.";
-                    echo "Error ICode: " . $_FILES["Image"]["error"];
-                    die();
+                $pathToFile='image/';
+                $image='null';
+                $uploadfile=$pathToFile.basename($_FILES['Image']['name']);
+                if(move_uploaded_file($_FILES['Image']['tmp_name'],$uploadfile)){
+                    $image='Image/'.basename($_FILES['Image']['name']);
                 }
-                if(file_exists($tmpPath))
-                {
-                    if (!move_uploaded_file($tmpPath,$path.$filename)) {
-                        //$image = 'image/' . basename($_FILES['Image']['name']);
-                        die('error saving image');
-                    }
-                }
-                else
-                {
-                    die('no file');
-                }
-$path=$path.$filename;
                 $data=$client->request('POST', 'lostitem',
                     [
                         'form_params' => [
                             'description' => $request->Description,
-
                             'itemtypeid' => $request->Category,
                             'date' => $request->Date,
                             'userid' => $request->UserId,
-                            'image' => $path,
+                            'title' => $request->Title,
+                            'model' => $request->Model,
+                            'address' => $request->Address,
+                            'sl' => $request->Specific_Location,
+                            'place' => $request->lost_place,
+                            'image' => $image
                         ]
                     ]);
 
@@ -197,7 +232,7 @@ $path=$path.$filename;
                 print_r($e->getMessage());
                 die();
             }
-
+            return redirect('/dashboard')->with('status','Lost item successfully posted');
         }
         return view('lostitem', ['form' => $form]);
     }
@@ -227,8 +262,14 @@ $path=$path.$filename;
                             'item_type_id' => $request->Category,
                             'date' => $request->Date,
                             'userid' => $request->UserId,
+                            'title' => $request->Title,
+                            'model' => $request->Model,
+                            'address' => $request->Address,
+                            'sl' => $request->Specific_Location,
+                            'place' => $request->found_place,
                         ]
                     ]);
+                return redirect('/dashboard')->with('status','Found item successfully posted');
             }
             return view('founditem', ['form' => $form]);
         }
@@ -237,15 +278,7 @@ $path=$path.$filename;
             print_r($e->getMessage());//die();
         }
     }
-    public function  Information(FormBuilder $formBuilder)
-    {
-        $form = $formBuilder->create('Lost\Forms\information', [
-            'method' => 'post',
-            'url' => route('information')
-        ]);
-        return view('information', ['form' => $form]);
 
-    }
     public function Contact (FormBuilder $formBuilder)
     {
         $form = $formBuilder->create('Lost\Forms\contactform', [
@@ -254,13 +287,76 @@ $path=$path.$filename;
         ]);
         return view('contact', ['form' => $form]);
     }
-    public function DashBoard (FormBuilder $formBuilder)
+    public function Message(FormBuilder $formBuilder)
     {
-        $form = $formBuilder->create('Lost\Forms\dashboard', [
+        $loginform = $formBuilder->create('Lost\Forms\LoginForm', [
             'method' => 'post',
-            'url' => route('dashboard')
+            'url' => route('login')
         ]);
-        return view('dashboard', ['form' => $form]);
+        $form = $formBuilder->create('Lost\Forms\contactform', [
+            'method' => 'post',
+            'url' => route('message')
+        ]);
+        return view('message', ['form' => $form,'loginform'=>$loginform]);
+
+    }
+    public function alllost()
+    {
+
+        $client = new Client(['base_uri' => config('app.REST_API')]);
+        $response1 = $client->request('GET', 'alllost');
+        $data1 = $response1->getBody()->getContents();
+        $lostpost1 = \GuzzleHttp\json_decode($data1);
+
+        return view('alllostposts', compact('lostpost1','form'));
+
+    }
+    public function allfound()
+    {
+
+        $client = new Client(['base_uri' => config('app.REST_API')]);
+        $response1 = $client->request('GET', 'allfound');
+        $data1 = $response1->getBody()->getContents();
+        $foundpost1 = \GuzzleHttp\json_decode($data1);
+
+        return view('allfoundposts', compact('foundpost1','form'));
+
+    }
+
+    public function lostdetailview(Request $request)
+    {
+
+        $item_id = $request->id;
+        /*print_r($item_id);die();*/
+        $client = new Client(['base_uri' => config('app.REST_API')]);
+        if ($request->getMethod() == 'GET') {
+//            print_r("if contdition vitra");die();
+            $response1 = $client->request('GET', 'lostdetailview/'.$item_id);
+            $data1 = $response1->getBody()->getContents();
+            $lostdetail = \GuzzleHttp\json_decode($data1);
+            return view('lostdetail', compact('lostdetail'));
+
+
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function founddetailview(Request $request)
+    {
+
+        $item_id = $request->id;
+        $client = new Client(['base_uri' => config('app.REST_API')]);
+        if ($request->getMethod() == 'GET') {
+            $response1 = $client->request('GET', 'founddetailview/'.$item_id);
+            $data1 = $response1->getBody()->getContents();
+            $founddetail = \GuzzleHttp\json_decode($data1);
+            return view('founddetail', compact('founddetail'));
+
+
+        }
     }
     private function UserCheck()
     {

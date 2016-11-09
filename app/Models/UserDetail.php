@@ -10,8 +10,8 @@ class UserDetail extends Model {
 
     protected $table = 'user_detail';
     protected $fillable = ['id', 'user_id', 'first_name', 'last_name', 'address', 'phone_no', 'country_id', 'state_id', 'zone_id', 'district_id', 'locality'];
-
     public $timestamps=false;
+
     public function country() {
         return $this->belongsTo(\Lost\Models\Country::class, 'country_id', 'id');
     }

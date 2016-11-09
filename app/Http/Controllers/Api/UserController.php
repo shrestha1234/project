@@ -61,6 +61,11 @@ class UserController extends Controller
              $itemtype->item_type_id = $request->itemtypeid;
              $itemtype->user_id = $request->userid;
              $itemtype->date = $request->date;
+            $itemtype->title = $request->title;
+            $itemtype->model = $request->model;
+            $itemtype->address = $request->address;
+            $itemtype->specific_location = $request->sl;
+            $itemtype->lostorfound_place = $request->place;
              $itemtype->save();
         } catch (\Exception $e) {
             throw $e;
@@ -78,6 +83,11 @@ class UserController extends Controller
             $itemtype->item_type_id = $request->item_type_id;
             $itemtype->user_id = $request->userid;
             $itemtype->date = $request->date;
+            $itemtype->title = $request->title;
+            $itemtype->model = $request->model;
+            $itemtype->address = $request->address;
+            $itemtype->specific_location = $request->sl;
+            $itemtype->lostorfound_place = $request->place;
             $itemtype->save();
         } catch (\Exception $e) {
             throw $e;

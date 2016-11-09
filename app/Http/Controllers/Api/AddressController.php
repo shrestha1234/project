@@ -18,7 +18,7 @@ class AddressController extends Controller
      */
     public function getCountry()
     {
-        return Country::all();   /*select * from country */
+        return Country::all();/*select * from country */
     }
     public function getState()
     {

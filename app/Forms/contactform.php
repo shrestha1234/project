@@ -35,7 +35,7 @@ class contactform extends Form
 
             ])
 
-            ->add('submit','submit',[
+            ->add('Send','submit',[
                 'wrapper'=>['class'=>'form-group row'],
                 'label_attr'=>['class'=>'col-md-4 control-label'],
                 'attr'=>['class'=>'btn btn-success col-md-offset-1']

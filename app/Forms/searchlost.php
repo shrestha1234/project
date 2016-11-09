@@ -31,10 +31,13 @@ class searchlost extends Form
             'label_attr'=>['class'=>'col-md-4 control-label'],
             'attr'=>['class'=>'col-md-7 form-control'],
 
+
         ])
+
             ->add('Search','submit',[
                 'wrapper'=>['class'=>'form-group row'],
                 'attr'=>['class'=>'btn btn-success col-md-offset-1'],
+
 
         ]);
     }

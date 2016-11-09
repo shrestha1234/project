@@ -9,9 +9,9 @@ class Lost extends Model {
      */
 
     protected $table = 'lost';
-    protected $fillable = ['id', 'description', 'image', 'user_id', 'item_type_id', 'date'];
-
+    protected $fillable = ['id', 'description', 'image', 'user_id', 'item_type_id', 'date', 'model', 'title', 'address', 'specific_location', 'lostorfound_place'];
     public $timestamps=false;
+
     public function itemType() {
         return $this->belongsTo(\Lost\Models\ItemType::class, 'item_type_id', 'id');
     }

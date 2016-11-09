@@ -12,8 +12,15 @@ class ItemType extends Model {
     protected $fillable = ['id', 'name'];
     public $timestamps=false;
 
+
     public function users() {
-        return $this->belongsToMany(\Lost\Models\User::class, 'lost', 'item_type_id', 'user_id');
+        return $this->belongsToMany(\Lost\Models\User::class, 'found', 'item_type_id', 'user_id');
+    }
+
+
+
+    public function founds() {
+        return $this->hasMany(\Lost\Models\Found::class, 'item_type_id', 'id');
     }
 
     public function losts() {

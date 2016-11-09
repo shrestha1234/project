@@ -49,21 +49,15 @@ class lostitem extends Form
                 'label_attr'=>['class'=>'col-md-4 control-label'],
                 'attr'=>['class'=>'col-md-7 form-control'],
             ])
-            ->add('Color','select',[
-                'choices' => ['en' => 'Red', 'ye' => 'Yellow','bl' => 'Blue', 'gr' => 'Green','wh' => 'White', 'bla' => 'Black','br' => 'Brown', 'gl' => 'Gold'],
-                'selected' => 'en',
-                'wrapper'=>['class'=>'form-group row'],
-                'label_attr'=>['class'=>'col-md-4 control-label'],
-                'attr'=>['class'=>'col-md-7 form-control'],
-            ])
             ->add('Address','text',[
                 'wrapper'=>['class'=>'form-group row'],
                 'label_attr'=>['class'=>'col-md-4 control-label'],
                 'attr'=>['class'=>'col-md-7 form-control'],
             ])
-            ->add('City/Town where item was lost','text',[
+            ->add('lost_place','text',[
                 'wrapper'=>['class'=>'form-group row'],
                 'label_attr'=>['class'=>'col-md-4 control-label'],
+                'label'=>'Place where item was lost',
                 'attr'=>['class'=>'col-md-7 form-control'],
 
             ])

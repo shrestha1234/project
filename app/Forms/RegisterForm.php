@@ -26,12 +26,14 @@ class RegisterForm extends Form
         {
             $zoneOptions[$zone->id]=$zone->name;
         }
+
         $districts=$this->getData('districts');
         $districtOptions=[];
         foreach($districts->districts as $district)
         {
             $districtOptions[$district->id]=$district->name;
         }
+
         $this
         ->add('First_Name','text',[
             'wrapper'=>['class'=>'form-group row'],

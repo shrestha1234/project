@@ -12,6 +12,7 @@ class Country extends Model {
     protected $fillable = ['id', 'country_name'];
     public $timestamps=false;
 
+
     public function states() {
         return $this->hasMany(\Lost\Models\State::class, 'country_id', 'id');
     }

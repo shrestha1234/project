@@ -12,6 +12,7 @@ class BoxType extends Model {
     protected $fillable = ['id', 'name'];
     public $timestamps=false;
 
+
     public function messageBoxes() {
         return $this->hasMany(\Lost\Models\MessageBox::class, 'box_type_id', 'id');
     }
