@@ -1,7 +1,7 @@
 @extends('main')
 @section('title','searchlost')
 @section('content')
-
+    <br><br>
     <div class="container">
         <div class="row">
 
@@ -31,9 +31,9 @@
                             @foreach ($searchlost as $retrive)
 
                                 <tr>
-                                    <td>{{$retrive->description}}</td>
-                                    <td>{{$retrive->name}}</td>
                                     <td>{{$retrive->date}}</td>
+                                    <td>{{$retrive->name}}</td>
+                                    <td> <img src="{{URL::asset('/image/'.$retrive->image)}}" height="150" width="200"></td>
                                     <td><a href="/lostdetailview?id={{$retrive->id}}">
                                             <button type="button" class="btn btn-success">Details</button></a></td>
 
@@ -49,4 +49,5 @@
                     </div>
                 </div>
             </div>
+    <br><br><br><br>
 @endsection

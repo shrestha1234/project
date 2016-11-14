@@ -22,7 +22,7 @@
        <div class="alert alert-danger"><h3 style="text-align:center">Please Login First</h3></div>
        <div class="container-fluid">
            <div class="row">
-       <div class="col-md-5 col-md-offset-3">
+       <div class="col-md-4 col-md-offset-4">
            <div class="panel panel-default">
                <div class="panel-heading"> Login<span class="glyphicon glyphicon-user"></span> </div>
                <div class="panel-body ">

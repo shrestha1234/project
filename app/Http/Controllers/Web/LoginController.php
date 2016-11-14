@@ -40,7 +40,6 @@ class LoginController extends Controller
             $user->password=$userApi->password;
             $user->user_typeid=$userApi->user_typeid;
             Auth::login($user);
-
             /*print_r(Auth::user());die();*/
             //   return redirect()->route('manager.dash');
             return $this->UserCheck();
@@ -147,7 +146,7 @@ class LoginController extends Controller
                 [
                     'form_params' => [
                         'keyword' => $request->Keyword,
-                        /*'category' => $request->Category,*/
+                        'category' => $request->Category,
 
                     ]
                 ]);
@@ -180,7 +179,6 @@ class LoginController extends Controller
                     'form_params' => [
                         'keyword' => $request->Keyword,
                         'category' => $request->Category,
-
                     ]
                 ]);
             $data1 = $response1->getBody()->getContents();
@@ -188,6 +186,7 @@ class LoginController extends Controller
         }
         return view('searchfound', ['form' => $form,'searchfound'=>$searchfound]);
     }
+
     public function ReportLost(FormBuilder $formBuilder,Request $request)
     {
         //try {
@@ -201,24 +200,28 @@ class LoginController extends Controller
         /* print_r($itemtypes);die();*/
         $form = $formBuilder->create('Lost\Forms\lostitem', [
             'method' => 'post',
-            'url' => route('lostitem')
+            'url' => route('lostitem'),
+            'files' => 'true'
         ], ['itemtypes' => $itemtypes]);
         /*print_r($request->Date);die();*/
         if ($request->getMethod() == 'POST') {
             try {
-                $pathToFile='image/';
+                $pathToFile=public_path('/image');
                 $image='null';
                 $uploadfile=$pathToFile.basename($_FILES['Image']['name']);
-                if(move_uploaded_file($_FILES['Image']['tmp_name'],$uploadfile)){
-                    $image='Image/'.basename($_FILES['Image']['name']);
-                }
+
+                $image = time().'.'.$request->Image->getClientOriginalExtension();
+                $request->Image->move($pathToFile,$image);
+
+                $userid = Auth::user()->id;//login garne ko userid pathauxa
+
                 $data=$client->request('POST', 'lostitem',
                     [
                         'form_params' => [
                             'description' => $request->Description,
                             'itemtypeid' => $request->Category,
                             'date' => $request->Date,
-                            'userid' => $request->UserId,
+                            'userid' => $userid,
                             'title' => $request->Title,
                             'model' => $request->Model,
                             'address' => $request->Address,
@@ -236,9 +239,10 @@ class LoginController extends Controller
         }
         return view('lostitem', ['form' => $form]);
     }
+
     public function ReportFound(FormBuilder $formBuilder,Request $request)
     {
-        try {
+
             $client = new Client(['base_uri' => config('app.REST_API')]);
 
             $response = $client->request('GET', 'item_type');//api bata tanyo
@@ -254,14 +258,25 @@ class LoginController extends Controller
             /*print_r($request->Date);die();*/
             if ($request->getMethod() == 'POST') {
                 //print_r($request);die();
-                $client->request('POST', 'founditem',
+                try {
+                    $pathToFile=public_path('/image');
+                    $image='null';
+                    $uploadfile=$pathToFile.basename($_FILES['Image']['name']);
+
+                    $image = time().'.'.$request->Image->getClientOriginalExtension();
+                    $request->Image->move($pathToFile,$image);
+
+                    $userid = Auth::user()->id;//login garne ko userid pathauxa
+
+                    $data=$client->request('POST', 'founditem',
+
                     [
                         'form_params' => [
                             'description' => $request->Description,
-                            'image' => $request->Image,
+                            'image' => $image,
                             'item_type_id' => $request->Category,
                             'date' => $request->Date,
-                            'userid' => $request->UserId,
+                            'userid' => $userid,
                             'title' => $request->Title,
                             'model' => $request->Model,
                             'address' => $request->Address,
@@ -269,14 +284,13 @@ class LoginController extends Controller
                             'place' => $request->found_place,
                         ]
                     ]);
-                return redirect('/dashboard')->with('status','Found item successfully posted');
+                } catch (\Exception $e) {
+                    print_r($e->getMessage());
+                    die();
+                }
+                return redirect('/dashboard')->with('status','found item successfully posted');
             }
-            return view('founditem', ['form' => $form]);
-        }
-        catch(\Exception $e)
-        {
-            print_r($e->getMessage());//die();
-        }
+        return view('founditem', ['form' => $form]);
     }
 
     public function Contact (FormBuilder $formBuilder)
@@ -358,6 +372,8 @@ class LoginController extends Controller
 
         }
     }
+
+
     private function UserCheck()
     {
         if(Auth::check())

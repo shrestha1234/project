@@ -27,21 +27,23 @@
         filter: alpha(opacity=100);
     }
 </style>
-<div class="container">
-    <div class="col-xs-11 col-md-12">
-        <div class="row">
-            <div class="col-xs-4 col-md-6">
+{{--<div class="container">--}}
+    {{--<div class="col-xs-1 col-md-9">--}}
+        {{--<div class="row">--}}
+            <div class="col-xs-4 col-md-3">
                 <h2>Report a Lost Item</h2>
                 <a href="/lostitem">
                 <img src="image/rl.jpg"  width="304" height="236"></a>
             </div>
-            <div class="col-xs-4 col-md-6">
+            <div class="col-xs-4 col-md-3">
                 <h2>Report a Found Item</h2>
                 <a href="/founditem">
                 <img src="image/rf.jpg" width="304" height="236"></a>
             </div>
+        {{Auth::user()->id}}
 
-        </div>
-    </div>
-</div>
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 @endsection

@@ -63,6 +63,7 @@
 
 <ul class="nav navbar-nav navbar-right">
         @if(Auth::check())
+
         <li ><a href=""></span> My Account</a></li>
                 <li ><a href="/logout"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
 

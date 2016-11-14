@@ -19,15 +19,19 @@
         <div class="col-md-1">
             <image src="image/lostandfound.jpg" class="img-circle" style=" width:300px; height:80px;"/>
         </div>
-        <div class="col-md-11" >
-            <h1  style="text-align:center;font-family:verdana;" ><b><i>LOST AND FOUND</i></b></h1>
+        <div class="col-md-7 " >
+            <h1  style="text-align:right;font-family:verdana;" ><b><i>LOST AND FOUND</i></b></h1>
         </div>
-
+        <div class="col-md-4">
+            @if(Auth::check())<br><br><br>
+            <p style="text-align:right"><b>welcome : {{Auth::user()->email}}</b></p>
+                @endif
+            </div>
     </div>
 
-</div>
-</div>
-<body {{--style="background-color:ghostwhite;"--}}>
+
+
+<body style="background-color:ghostwhite;">
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -42,7 +46,7 @@
     </div>
 @endif
 
-<div style="height:400px" ;>
+{{--<div style="height:400px" ;>--}}
 @yield('content')</div>
 
 {{--<image src="image/lost.jpg"  class="img-circle" style=" width:1350px; height:400px "/>--}}

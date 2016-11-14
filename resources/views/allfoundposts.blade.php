@@ -8,20 +8,18 @@
             <table class="table">
                 <thead>
                 <tr>
-                    {{--<th>SNo</th>--}}
-                    <th>Description</th>
+                    <th>Posted on</th>
                     <th>Category</th>
-                    <th>Date</th>
+                    <th>Image</th>
                 </tr>
                 </thead>
                 <tbody>
 
                 @foreach ($foundpost1 as $retrive)
                     <tr>
-                        {{--<td>{{$retrive->id}}</td>--}}
-                        <td>{{$retrive->description}}</td>
-                        <td>{{$retrive->name}}</td>
                         <td>{{$retrive->date}}</td>
+                        <td>{{$retrive->name}}</td>
+                        <td> <img src="{{URL::asset('/image/'.$retrive->image)}}" height="150" width="200"></td>
                         <td><a href="/founddetailview?id={{$retrive->id}}">
                                 <button type="button" class="btn btn-success">Details</button></a></td>
                     </tr>

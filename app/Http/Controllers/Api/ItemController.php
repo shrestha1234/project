@@ -21,67 +21,75 @@ class ItemController extends Controller
     {
         return ItemType::all();
     }
+
     public function getFoundItem()
     {
         /*return Found::all()->toArray()*/
         $founditems = DB::table('found')
             ->join('item_type', 'found.item_type_id', '=', 'item_type.id')
             ->select('found.*', 'item_type.name')
-            ->orderby('date','DESC')
+            ->orderby('date', 'DESC')
             /*->where('item_type.name', 'like', 'E%')*/
             ->take(5)->get()->toArray();
         return $founditems;
     }
+
     public function getLostItem()
     {
 
         $lostitems = DB::table('lost')
             ->join('item_type', 'lost.item_type_id', '=', 'item_type.id')
             ->select('lost.*', 'item_type.name')
-            ->orderby('date','DESC')
-
+            ->orderby('date', 'DESC')
             ->take(5)->get()->toArray();
         return $lostitems;
     }
+
     public function getFound()
     {
         $founditems = DB::table('found')
             ->join('item_type', 'found.item_type_id', '=', 'item_type.id')
             ->select('found.*', 'item_type.name')
-            ->orderby('date','DESC')->get()->toArray();
+            ->orderby('date', 'DESC')->get()->toArray();
         return $founditems;
     }
+
     public function getLost()
     {
         $lostitems = DB::table('lost')
             ->join('item_type', 'lost.item_type_id', '=', 'item_type.id')
             ->select('lost.*', 'item_type.name')
-            ->orderby('date','DESC')->get()->toArray();
+            ->orderby('date', 'DESC')->get()->toArray();
         return $lostitems;
     }
+
     public function getLostdetail(Request $request)
     {
-        $id=$request->id;
+        $id = $request->id;
         $lostitems = DB::table('lost')
             ->join('item_type', 'lost.item_type_id', '=', 'item_type.id')
             ->select('lost.*', 'item_type.name')
-            ->where("id",'LIKE',"%$id%")
-            ->orderby('date','DESC')->get()->toArray();
+            ->where("id", 'LIKE', "%$id%")
+            ->orderby('date', 'DESC')->get()->toArray();
         return $lostitems;
     }
+
     public function getSearchLost(Request $request)
     {
         $keywords = $request->keyword;
-        /*$category = $request->category;*/
+        $category = $request->category;
         $search = DB::table('lost')
             ->join('item_type', 'lost.item_type_id', '=', 'item_type.id')
             ->select('lost.*', 'item_type.name')
-            ->where("description",'LIKE',"%$keywords%")
-            /*->where("name",'LIKE',"%$category%")*/
-            ->orderby('date','DESC')->get()->toArray();
+            ->where("item_type.id", '=', "$category")
+            ->where("title", 'LIKE', "%$keywords%")
+//                ->orwhere("model",'LIKE',"%$keywords%")
+//                ->orwhere("title",'LIKE',"%$keywords%")
+            ->orderby('date', 'DESC')->get()->toArray();
 
         return $search;
     }
+
     public function getSearchFound(Request $request)
     {
         $keywords = $request->keyword;
@@ -89,27 +97,43 @@ class ItemController extends Controller
         $search = DB::table('found')
             ->join('item_type', 'found.item_type_id', '=', 'item_type.id')
             ->select('found.*', 'item_type.name')
-            ->where("description",'LIKE',"%$keywords%")
-            ->orWhere("name", 'LIKE', "%$category%")
-            ->orderby('date','DESC')->get()->toArray();
+            ->where("item_type.id", '=', "$category")
+            /*->where("description",'LIKE',"%$keywords%")
+            ->orwhere("model",'LIKE',"%$keywords%")*/
+            ->orwhere("title", 'LIKE', "%$keywords%")
+            ->orderby('date', 'DESC')->get()->toArray();
 
         return $search;
     }
 
-    public function getLostDetailView($id){
+    public function getLostDetailView($id)
+    {
         $search = DB::table('lost')
             ->join('item_type', 'lost.item_type_id', '=', 'item_type.id')
             ->select('lost.*', 'item_type.name')
-           ->where('lost.id','=',$id)
+            ->where('lost.id', '=', $id)
             ->get()->toArray();
         return $search;
     }
-    public function getFoundDetailView($id){
+
+    public function getFoundDetailView($id)
+    {
         $search = DB::table('found')
             ->join('item_type', 'found.item_type_id', '=', 'item_type.id')
             ->select('found.*', 'item_type.name')
-            ->where('found.id','=',$id)
+            ->where('found.id', '=', $id)
             ->get()->toArray();
         return $search;
+    }
+
+    public function getAI(Request $request)
+    {
+        $title = $request->title;
+        $ai = DB::table('lost')
+            ->join('item_type', 'lost.item_type_id', '=', 'item_type.id')
+            ->select('lost.*', 'item_type.name')
+            ->where("item_type.id", '=', "$title")
+            ->orderby('date', 'DESC')->get()->toArray();
+        return $ai;
     }
 }

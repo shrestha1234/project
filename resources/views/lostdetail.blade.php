@@ -3,25 +3,31 @@
 @extends('main')
 @section('title','Details')
 @section('content')
+    <div class="col-md-12">
     <div class="panel panel-default">
 <div class="container">
         @foreach($lostdetail as $ld)
-                      <h3>{{$ld->name}}</h3>
-    <hr>
+                      <h3>Category : {{$ld->name}}</h3>
+        <hr>
         <h5><span class="glyphicon glyphicon-time"></span> posted on:{{$ld->date}}</h5>
     <hr>
         <h4>Title : {{$ld->title}}</h4>
         <h4>Model : {{$ld->model}}</h4>
+        <hr>
         <h4>Address : {{$ld->address}}</h4>
         <h4>Place where item was lost : {{$ld->lostorfound_place}}</h4>
         <h4>Specific Location : {{$ld->specific_location}}</h4>
+        <img src="{{URL::asset('/image/'.$ld->image)}}" height="400" width="550" alt="lost item">
     <hr>
-        <p>{{$ld->description}}</p>
+        <h4>Description</h4><p>{{$ld->description}}</p>
+        <br>
         <a href="/message">
             <button type="button" class="btn btn-success">Claim</button></a>
-
-            @endforeach
+    @endforeach
+            <hr>
 </div></div>
+
+    </div>
 
 
     @endsection
