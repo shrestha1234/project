@@ -2,7 +2,7 @@
 @section('title','Details')
 @section('content')
     <div class="col-md-12">
-        <div class="panel panel-default">
+        <div class="panel panel-success">
     <div class="container">
         @foreach($founddetail as $ld)
             <h3>Category : {{$ld->name}}</h3>

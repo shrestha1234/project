@@ -9,23 +9,27 @@
 
     <div class="container-fluid">
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-8">
         @include('home')
     </div>
-    <div class="col-md-3">
-        <div class="panel panel-default">
-            <div class="panel-heading"> Login<span class="glyphicon glyphicon-user"></span> </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading"> <span class="glyphicon glyphicon-user"></span> <B>Login</B></div>
             <div class="panel-body ">
-                <h1 style=font-size:150%;>Enter your Username and Password</h1></br>
+                {{--<h3 style=font-size:120%;><b>Enter your Username and Password</b></h3></br>--}}
                 {!!form($form) !!}
             </div>
+            <div class="panel-footer"></div>
         </div>
     </div>
     </div>
+
+
         <div class="row">
             <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading"><h4>Recent Found Item Posts</h4></div>
+            <div class="panel panel-success">
+                <div class="panel-heading"><h4>Recent Found Posts</h4></div>
                 <div class="panel-body ">
                     <table class="table">
                         <thead>
@@ -50,7 +54,8 @@
                    </tbody>
 
                     </table><a href="/allfoundposts">
-                        <button type="button" class="btn btn-success">View All</button></a>
+                        <hr>
+                        <button type="button" class="btn btn-success col-md-offset-10">View All</button></a>
                 </div>
 
 
@@ -59,8 +64,8 @@
             </div>
 
             <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><h4>Recent Lost Item Posts</h4></div>
+                <div class="panel panel-success">
+                    <div class="panel-heading"><h4>Recent Lost Posts</h4></div>
                     <div class="panel-body ">
                         <table class="table">
                             <thead>
@@ -85,8 +90,9 @@
 
                             </tbody>
                         </table>
+                        <hr>
                         <a href="/alllostposts">
-                        <button type="button" class="btn btn-success">View All</button></a>
+                        <button type="button" class="btn btn-success col-md-offset-10">View All</button></a>
 
                         </table>
                     </div>

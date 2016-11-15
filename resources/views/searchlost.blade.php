@@ -21,9 +21,9 @@
                             <thead>
                             <tr>
                                 {{--<th>SNo</th>--}}
-                                <th>Description</th>
+                                <th>Posted on</th>
                                 <th>Category</th>
-                                <th>Date</th>
+                                <th>Image</th>
                             </tr>
                             </thead>
                             <tbody>

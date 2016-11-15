@@ -41,7 +41,7 @@ $api->version("v1",['namespace'=>"Lost\Http\Controllers\Api"],function($api){
     $api->any('lostdetailview/{id}',['uses'=>'ItemController@getLostDetailView']);
     $api->any('founddetailview/{id}',['uses'=>'ItemController@getFoundDetailView']);
 
-    $api->any('searchfound',['uses'=>'ItemController@AI']);
+    $api->any('ai/{id}',['uses'=>'ItemController@getAI']);
 
 
 });

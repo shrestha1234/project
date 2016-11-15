@@ -3,7 +3,7 @@
 @section('content')
     <div>
     <div class="col-md-8 col-md-offset-2">
-        <div class="panel panel-default">
+        <div class="panel panel-success">
             <div class="panel-heading"><h4>Lost Item Posts</h4></div>
             <div class="panel-body ">
                 <table class="table">

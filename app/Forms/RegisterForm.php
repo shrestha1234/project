@@ -46,7 +46,7 @@ class RegisterForm extends Form
             'wrapper'=>['class'=>'form-group row'],
             'label_attr'=>['class'=>'col-md-4 control-label'],
             'attr'=>['class'=>'col-md-7 form-control','placeholder'=>'Enter your Last Name'],
-            'rules'=>['required','min:8']
+            'rules'=>['required']
 
         ])
             ->add('Email','email',[
@@ -108,13 +108,13 @@ class RegisterForm extends Form
 
             ->add('clear', 'reset', ['label' => 'Clear form',
                 'wrapper'=>['class'=>'form-group row'],
-                'attr'=>['class'=>'btn btn-warning col-md-offset-1']
+                'attr'=>['class'=>'btn btn-warning col-md-offset-4']
             ])
 
             ->add('Submit','submit',[
             'wrapper'=>['class'=>'form-group row'],
                 'label_attr'=>['class'=>'col-md-4 control-label'],
-            'attr'=>['class'=>'btn btn-primary col-md-offset-1']
+            'attr'=>['class'=>'btn btn-primary col-md-offset-4']
                 ])
             ->add('User_Type','hidden',[
                 'default_value'=>1

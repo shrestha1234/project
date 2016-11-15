@@ -36,7 +36,7 @@ class searchlost extends Form
 
             ->add('Search','submit',[
                 'wrapper'=>['class'=>'form-group row'],
-                'attr'=>['class'=>'btn btn-success col-md-offset-1'],
+                'attr'=>['class'=>'btn btn-success col-md-offset-4'],
 
 
         ]);

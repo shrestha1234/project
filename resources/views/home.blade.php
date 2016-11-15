@@ -18,16 +18,16 @@
                </div>
 
                <!-- Wrapper for slides -->
-               <div class="carousel-inner" >
+               <div class="carousel-inner " >
                    <div class="item active">
-                       <img src="image/kkk.jpg" width="1000" height="1160">
+                       <img src="image/kkk.jpg" class="img-responsive" >
                    </div>
                    <div class="item">
-                       <img src="image/lost.jpg" width="1000" height="1160" >
+                       <img src="image/lost.jpg" class="img-responsive" >
                    </div>
 
                    <div class="item">
-                       <img src="image/q.jpg" width="1000" height="1160">
+                       <img src="image/q.jpg" class="img-responsive" >
                    </div>
 
 

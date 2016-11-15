@@ -115,7 +115,17 @@ class UserController extends Controller
         } catch (JWTException $e) {
                 return response()->error('could_not_create_token', 500);
         }
-         $user=User::where('email','=',$request->email)->first();            /*user=model ko*/
+         $user=User::where('email','=',$request->email)->first();
+             if(!$user)
+             {
+                 throw new \Exception('Invalid username',ExceptionCode::INVALID_USER);
+             }
+
+             elseif(!Hash::check($request->password,$user->password))
+             {
+                 throw new \Exception('Invalid Password',ExceptionCode::INVALID_PASSWORD);
+             }
+             /*user=model ko*/
          return response()->json(compact('user','token'));
          }
        catch(\Exception $e)

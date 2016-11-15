@@ -23,27 +23,32 @@ class LoginController extends Controller
             'url' => route('login')
         ]);
         if ($request->getMethod() == 'POST') {
-            //print_r($request);die();
-            $response = $client->request('POST', 'login',
-                [
-                    'form_params' => [
-                        'email' => $request->email,
-                        'password' => $request->password,
+            try {//print_r($request);die();
+                $response = $client->request('POST', 'login',
+                    [
+                        'form_params' => [
+                            'email' => $request->email,
+                            'password' => $request->password,
 
-                    ]
-                ]);
-            $userApi=\GuzzleHttp\json_decode($response->getBody()->getContents())->user;
-            //print_r($userApi);die();
-            $user=new User();
-            $user->id=$userApi->id;
-            $user->username=$userApi->username;
-            $user->password=$userApi->password;
-            $user->user_typeid=$userApi->user_typeid;
-            Auth::login($user);
-            /*print_r(Auth::user());die();*/
-            //   return redirect()->route('manager.dash');
-            return $this->UserCheck();
-
+                        ]
+                    ]);
+                $userApi = \GuzzleHttp\json_decode($response->getBody()->getContents())->user;
+//            print_r($userApi);die();
+                $user = new User();
+                $user->id = $userApi->id;
+                $user->username = $userApi->username;
+                $user->password = $userApi->password;
+                $user->user_typeid = $userApi->user_typeid;
+                Auth::login($user);
+                /*print_r(Auth::user());die();*/
+                //   return redirect()->route('manager.dash');
+                return $this->UserCheck();
+            }
+            catch(\Exception $e)
+        {
+            //print_r($e->getMessage());die();
+            return redirect('/')->with('status','Invalid Email and Password!!!');
+        }
         // print_r($response->getBody()->getContents());die();
         }
         /*$client = new Client(['base_uri' => config('app.REST_API')]);
@@ -372,6 +377,18 @@ class LoginController extends Controller
 
         }
     }
+    public function ai(Request $request)
+    {
+      $user=Auth::user();
+        $client = new Client(['base_uri' => config('app.REST_API')]);
+        $response1 = $client->request('GET', 'ai/'.$user->id);
+        $data1 = $response1->getBody()->getContents();
+        $dashboard = \GuzzleHttp\json_decode($data1);
+        return view('dashboard', compact('dashboard','form'));
+
+
+        }
+
 
 
     private function UserCheck()

@@ -126,14 +126,27 @@ class ItemController extends Controller
         return $search;
     }
 
-    public function getAI(Request $request)
+    public function getAI($id)
     {
-        $title = $request->title;
-        $ai = DB::table('lost')
+
+        $userlost = DB::table('lost')
+            ->select('lost.item_type_id')
+            ->where("lost.user_id", '=', "$id")
+            ->get()->toArray();
+        $item_ids=array();
+        foreach($userlost as $lostitem)
+        {
+            $item_ids[]=$lostitem->item_type_id;
+        }
+
+        $ai=DB::table('lost')
+
             ->join('item_type', 'lost.item_type_id', '=', 'item_type.id')
-            ->select('lost.*', 'item_type.name')
-            ->where("item_type.id", '=', "$title")
-            ->orderby('date', 'DESC')->get()->toArray();
+           ->select('lost.*','item_type.name')
+            ->whereIn("item_type_id",$item_ids)
+            ->where('user_id','<>',$id)
+            ->take(5)
+            ->get()->toArray();
         return $ai;
     }
 }
