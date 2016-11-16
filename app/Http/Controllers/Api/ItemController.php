@@ -129,9 +129,9 @@ class ItemController extends Controller
     public function getAI($id)
     {
 
-        $userlost = DB::table('lost')
-            ->select('lost.item_type_id')
-            ->where("lost.user_id", '=', "$id")
+        $userlost = DB::table('found')
+            ->select('found.item_type_id')
+            ->where("found.user_id", '=', "$id")
             ->get()->toArray();
         $item_ids=array();
         foreach($userlost as $lostitem)
@@ -139,10 +139,10 @@ class ItemController extends Controller
             $item_ids[]=$lostitem->item_type_id;
         }
 
-        $ai=DB::table('lost')
+        $ai=DB::table('found')
 
-            ->join('item_type', 'lost.item_type_id', '=', 'item_type.id')
-           ->select('lost.*','item_type.name')
+            ->join('item_type', 'found.item_type_id', '=', 'item_type.id')
+           ->select('found.*','item_type.name')
             ->whereIn("item_type_id",$item_ids)
             ->where('user_id','<>',$id)
             ->take(5)

@@ -121,10 +121,10 @@ class UserController extends Controller
                  throw new \Exception('Invalid username',ExceptionCode::INVALID_USER);
              }
 
-             elseif(!Hash::check($request->password,$user->password))
+             /*elseif(!Hash::check(bcrypt($request->password),$user->password))
              {
                  throw new \Exception('Invalid Password',ExceptionCode::INVALID_PASSWORD);
-             }
+             }*/
              /*user=model ko*/
          return response()->json(compact('user','token'));
          }

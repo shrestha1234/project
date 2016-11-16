@@ -8,6 +8,10 @@
     <link rel="stylesheet" type="text/css" href="css/CSS.css">
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootsnipp.css">
+    {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/paper/bootstrap.min.css" rel="stylesheet">
+    --}}
     {{--<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/paper/bootstrap.min.css" rel="stylesheet">--}}
     <title>lost and found: @yield('title')</title>
     <meta charset="utf-8">
@@ -48,7 +52,7 @@
 @endif
 
 {{--<div style="height:400px" ;>--}}
-@yield('content')</div>
+@yield('content')
 
 {{--<image src="image/lost.jpg"  class="img-circle" style=" width:1350px; height:400px "/>--}}
 </body>
